@@ -15,29 +15,12 @@ namespace AsynMethodTesting
         public async Task MyMethod()
         {
             //throw new InvalidOperationException();
-            await Task.Delay(1000);
+           await Task.Delay(1000);
         }
 
-        public async Task CallMethod()
+        public void CallMethod()
         {
-            await MyMethod();
-        }
-
-        public async void ThrowExceptionAsync()
-        {
-            throw new InvalidOperationException();
-        }
-
-        public void AsyncVoidException_CannotBeCaughtByCatch()
-        {
-            try
-            {
-                ThrowExceptionAsync();
-            }
-            catch(Exception)
-            {
-                throw;
-            }
+            MyMethod().ContinueWith( t => Console.WriteLine(t.ToString()));
         }
 
 
