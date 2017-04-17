@@ -13,6 +13,7 @@ namespace AsynMethodTesting
         static void Main(string[] args)
         {
             Go().Wait();
+            Console.WriteLine("main exit()");
         }
 
         public static async Task Go()
@@ -29,8 +30,9 @@ namespace AsynMethodTesting
             {
                 await Task.WhenAll(tasks).WithCancellation(new CancellationTokenSource(3000).Token);
             }
-            catch(OperationCanceledException)
+            catch(OperationCanceledException ex)
             {
+                Console.WriteLine(ex.Message);
             }
 
             foreach (var op in TaskLogger.GetLogEntries().OrderBy(tle => tle.LogTime))
